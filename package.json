@@ -7,9 +7,13 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@editorjs/editorjs": "^2.22.2",
+    "@editorjs/header": "^2.6.2",
+    "@editorjs/list": "^1.6.2",
     "@supabase/supabase-js": "^1.25.2",
     "autoprefixer": "^10.4.0",
     "postcss": "^8.3.11",
+    "sass": "^1.48.0",
     "tailwindcss": "^2.2.19",
     "vue": "^3.2.16",
     "vue-router": "^4.0.12"
