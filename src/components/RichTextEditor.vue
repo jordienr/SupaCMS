@@ -13,10 +13,17 @@ export default {
       editor: null,
     };
   },
+  props: {
+    content: {
+      type: Object,
+      required: false,
+    },
+  },
   mounted() {
     this.editor = new EditorJS({
       holderId: "rich-text-editor",
       placeholder: "Start writing...",
+      data: { blocks: this.content },
       tools: {
         header: {
           class: Header,
@@ -25,6 +32,7 @@ export default {
         list: List,
       },
     });
+    console.log("<<<>>", this.content);
   },
 
   beforeDestroy() {

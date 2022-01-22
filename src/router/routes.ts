@@ -13,12 +13,20 @@ export const routes = [
     },
   },
   {
-    path: "/:table",
+    path: "/content/:table",
     name: "Table",
     meta: {
       showSidebar: true,
     },
     component: () => import("../components/TableView.vue"),
+  },
+  {
+    path: "/files/:bucket",
+    name: "Bucket",
+    meta: {
+      showSidebar: true,
+    },
+    component: () => import("../components/BucketView.vue"),
   },
   {
     path: "/login",
@@ -41,7 +49,6 @@ export const routes = [
       from: RouteRecord,
       next: NavigationGuardNext
     ) => {
-      console.log("signout");
       supa.auth.signOut().then((d) => {
         window.location.reload();
       });

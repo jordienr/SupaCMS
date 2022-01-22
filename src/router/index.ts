@@ -11,8 +11,6 @@ router.beforeEach((to, from, next) => {
   const isLoggedIn = supa.auth.user();
   const routeIsPublic = to.meta.public || false;
 
-  console.log("isLoggedIn index", isLoggedIn);
-
   let nextPath = to.path;
 
   if (!isLoggedIn && !routeIsPublic) {

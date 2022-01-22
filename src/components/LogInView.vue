@@ -59,7 +59,6 @@ export default {
     },
   },
   mounted() {
-    console.log(supa.auth.user());
     if (supa.auth.user() !== null) {
       this.$router.push("/");
     }

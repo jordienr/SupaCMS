@@ -69,9 +69,11 @@
           class="bg-white h-full w-full max-w-screen-lg mx-auto rounded-md"
         >
           <AddDataForm
+            v-if="modalType === 'add'"
             :row="selectedRow"
             @cancel="showModal = false"
           ></AddDataForm>
+          <EditDataForm v-else :row="selectedRow"> </EditDataForm>
         </div>
       </transition>
     </div>
@@ -81,9 +83,10 @@
 <script>
 import { supa, config } from "../supabase";
 import AddDataForm from "./AddDataForm.vue";
+import EditDataForm from "./EditDataForm.vue";
 
 export default {
-  components: { AddDataForm },
+  components: { AddDataForm, EditDataForm },
   data() {
     return {
       loading: true,
@@ -126,6 +129,7 @@ export default {
     },
     editRow(row) {
       this.selectedRow = row;
+      this.modalType = "edit";
       this.showModal = true;
     },
     addDataHandler() {

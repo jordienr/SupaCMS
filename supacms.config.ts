@@ -1,5 +1,5 @@
 const config = {
-  appName: "🚀 SupaCMS",
+  appName: "SupaCMS",
   supabaseUrl: "https://jxcnfvxwqmeuomyvekfo.supabase.co",
   // schema: "/rest/v1/?apikey=${anon.value}",
   supabaseAnonKey:
@@ -94,6 +94,16 @@ const config = {
           type: "boolean",
         },
       ],
+    },
+  ],
+  buckets: [
+    {
+      name: "logos",
+      label: "Logos",
+    },
+    {
+      name: "blog",
+      label: "Blog",
     },
   ],
 };

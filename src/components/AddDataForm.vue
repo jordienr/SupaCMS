@@ -28,6 +28,7 @@
             :ref="input.name"
             :id="input.label"
             :name="input.name"
+            :placeholder="formData[input.name]"
             :type="getInputType(input.type)"
             @change="(e) => onChange(e, input.name, input.type)"
           />
@@ -61,18 +62,8 @@ export default {
   components: {
     RichTextEditor,
   },
-  props: {
-    row: {
-      type: Object,
-      required: true,
-    },
-  },
-  mounted() {
-    if (this.row.id) {
-      console.log(this.row);
-      this.formData = this.row;
-    }
-  },
+  props: {},
+  mounted() {},
   data() {
     return {
       formData: {},
