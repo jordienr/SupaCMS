@@ -1,11 +1,11 @@
 <template>
-  <div id="rich-text-editor" class="w-full"></div>
+  <div>
+    <textarea id="markdown-editor" class="w-full"></textarea>
+  </div>
 </template>
 
 <script>
-import EditorJS from "@editorjs/editorjs";
-import Header from "@editorjs/header";
-import List from "@editorjs/list";
+import EasyMDE from "easymde";
 
 export default {
   data() {
@@ -15,38 +15,22 @@ export default {
   },
   props: {
     content: {
-      type: Object,
+      type: String,
       required: false,
     },
   },
   mounted() {
-    this.editor = new EditorJS({
-      holderId: "rich-text-editor",
-      placeholder: "Start writing...",
-      data: { blocks: this.content },
-      tools: {
-        header: {
-          class: Header,
-          inlineToolbar: true,
-        },
-        list: List,
-      },
+    this.editor = new EasyMDE({
+      element: document.getElementById("markdown-editor"),
+      spellChecker: false,
+      initialValue: this.content,
     });
-    console.log("<<<>>", this.content);
-  },
 
-  beforeDestroy() {
-    this.editor = null;
+    this.editor.codemirror.on("change", () => {
+      this.$emit("change", this.editor.value());
+    });
   },
 };
 </script>
 
-<style lang="scss">
-.ce-paragraph {
-  font-size: 1rem;
-}
-.ce-header {
-  font-size: 1.5rem;
-  font-weight: 500;
-}
-</style>
+<style lang="scss"></style>

@@ -86,7 +86,7 @@ const config = {
         {
           name: "content",
           label: "Content",
-          type: "rich-text",
+          type: "markdown",
         },
         {
           name: "published",

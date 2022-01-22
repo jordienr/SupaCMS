@@ -6,20 +6,28 @@
       <h1 class="font-medium">
         {{ tableConfig.label }} - {{ tableData.length }} items
       </h1>
-      <button
-        class="px-3 py-2 bg-blue-500 text-white font-medium text-sm shadow-md rounded-lg hover:bg-blue-400"
-        @click="addDataHandler"
-      >
-        Add data
-      </button>
+      <div class="flex gap-4">
+        <button
+          @click="refresh"
+          class="px-3 py-2 text-slate-500 border rounded-lg text-sm"
+        >
+          Refresh
+        </button>
+        <button
+          class="px-3 py-2 bg-blue-500 text-white font-medium text-sm shadow-md rounded-lg hover:bg-blue-400"
+          @click="addDataHandler"
+        >
+          Add data
+        </button>
+      </div>
     </div>
     <pre v-if="loading">loading...</pre>
     <pre v-if="error" class="bg-red-50">{{ error }}</pre>
     <pre v-if="!loading && tableData.length === 0">    No data found</pre>
-    <div v-else>
-      <table class="min-w-full divide-y divide-gray-200">
+    <div v-if="!loading && tableData.length > 0">
+      <table class="min-w-full divide-y divide-gray-200 mb-48">
         <thead
-          class="bg-white bg-opacity-80 backdrop-blur-sm backdrop-filter sticky top-16 shadow-md"
+          class="bg-white bg-opacity-80 backdrop-blur-sm backdrop-filter sticky top-16"
         >
           <tr>
             <th
@@ -60,20 +68,31 @@
     <div
       v-if="showModal"
       @click.stop="showModal = false"
-      class="bg-gray-800 fixed top-0 left-0 z-index-1 w-full bg-opacity-70 h-screen flex justify-center items-center p-8"
+      class="bg-gray-800 backdrop-blur-sm fixed top-0 left-0 z-index-1 w-full bg-opacity-70 h-screen flex justify-center items-center p-8"
     >
       <transition name="slide-fade">
         <div
           v-if="showModal"
           @click.stop
-          class="bg-white h-full w-full max-w-screen-lg mx-auto rounded-md"
+          class="bg-white h-full w-full max-w-screen-lg mx-auto rounded-xl shadow-md"
         >
           <AddDataForm
             v-if="modalType === 'add'"
             :row="selectedRow"
             @cancel="showModal = false"
           ></AddDataForm>
-          <EditDataForm v-else :row="selectedRow"> </EditDataForm>
+          <EditDataForm
+            v-else
+            @cancel="showModal = false"
+            @submitted="
+              () => {
+                showModal = false;
+                refresh();
+              }
+            "
+            :row="selectedRow"
+          >
+          </EditDataForm>
         </div>
       </transition>
     </div>
@@ -115,6 +134,9 @@ export default {
     addRowForm() {},
   },
   methods: {
+    refresh() {
+      this.fetchTableData();
+    },
     async fetchTableData() {
       this.loading = true;
       const { data, error } = await supa

@@ -6,11 +6,12 @@
         v-for="input in tableConfig.cols"
         class="flex flex-col max-w-4xl mx-auto mt-4"
       >
-        <div
-          v-if="input.type === 'rich-text'"
-          class="focus-within:border-blue-500 hover:border-blue-500 focus-within:ring-1 ring-offset-2 border border-gray-300 p-4 rounded-lg my-4"
-        >
-          <RichTextEditor ref="richTextEditor" :content="row.content" />
+        <div v-if="input.type === 'markdown'" class="">
+          <RichTextEditor
+            @change="(e) => onChange(e, input.name, input.type)"
+            ref="richTextEditor"
+            :content="row.content"
+          />
         </div>
         <div v-else-if="input.type === 'boolean'">
           <label :for="input.label">{{ input.label }}</label>
@@ -79,6 +80,7 @@ export default {
     if (this.row.id) {
       this.formData = { ...this.row };
     }
+    console.log(this.row.id);
   },
 
   computed: {
@@ -95,51 +97,43 @@ export default {
         text: "text",
         number: "number",
         date: "date",
-        image: "file",
+        image: "text",
       };
 
       return inputTypes[type];
     },
     async submit() {
-      console.log("SUBMIT!!");
-      const data = {};
+      const { data, error } = await supa
+        .from(this.table)
+        .update(this.formData)
+        .match({ id: this.row.id });
 
-      for (const col of this.tableConfig.cols) {
-        if (col.type === "rich-text") {
-          data[col.name] = (
-            await this.$refs.richTextEditor.editor.save()
-          ).blocks;
-        } else if (col.type === "image" || col.type === "file") {
-          // UPLOAD FILE TO BUCKET AND SAVE URL TO DATA
-          await supa.storage
-            .from(col.bucket)
-            .upload(this.formData[col.name + "_name"], this.formData[col.name]);
+      this.$emit("submitted");
 
-          const { publicURL } = await supa.storage
-            .from(col.bucket)
-            .getPublicUrl(this.formData[col.name + "_name"]);
-
-          data[col.name] = publicURL;
-        } else {
-          data[col.name] = this.formData[col.name];
-        }
-      }
-
-      const { error } = await supa.from(this.tableConfig.name).insert(data);
-
-      console.log(error);
+      console.log("Submit", data, error);
     },
     onChange(e, name, type) {
-      if (type === "image") {
-        const file = e.target.files[0];
-        this.formData[name + "_preview"] = URL.createObjectURL(file);
-        this.formData[name + "_name"] = file.name;
-        this.formData[name] = e.target.files[0];
-      } else if (type === "boolean") {
-        this.formData[name] = e.target.checked;
-      } else {
-        this.formData[name] = e.target.value;
-      }
+      const handlers = {
+        image: () => {
+          const file = e.target.files[0];
+          this.formData[name + "_preview"] = URL.createObjectURL(file);
+          this.formData[name + "_name"] = file.name;
+          this.formData[name] = e.target.files[0];
+        },
+        boolean: () => {
+          this.formData[name] = e.target.checked;
+        },
+        default: () => {
+          this.formData[name] = e.target.value;
+        },
+        markdown: () => {
+          if (typeof e === "string") {
+            this.formData[name] = e;
+          }
+        },
+      };
+
+      handlers[type](e);
     },
   },
 };

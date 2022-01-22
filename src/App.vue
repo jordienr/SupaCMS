@@ -100,6 +100,6 @@ a.router-link {
 }
 
 a.router-link-active:not(.logo) {
-  @apply bg-slate-700 text-slate-100 highlight-slate-300/20 font-medium;
+  @apply bg-slate-700/40 text-slate-100 highlight-slate-300/20 font-medium;
 }
 </style>

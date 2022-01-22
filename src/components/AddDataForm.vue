@@ -7,7 +7,7 @@
         class="flex flex-col max-w-4xl mx-auto mt-4"
       >
         <div
-          v-if="input.type === 'rich-text'"
+          v-if="input.type === 'markdown'"
           class="focus-within:border-blue-500 hover:border-blue-500 focus-within:ring-1 ring-offset-2 border border-gray-300 p-4 rounded-lg my-4"
         >
           <RichTextEditor ref="richTextEditor" />
@@ -93,7 +93,7 @@ export default {
       const data = {};
 
       for (const col of this.tableConfig.cols) {
-        if (col.type === "rich-text") {
+        if (col.type === "markdown") {
           data[col.name] = (
             await this.$refs.richTextEditor.editor.save()
           ).blocks;
