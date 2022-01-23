@@ -13,16 +13,22 @@
             :content="row.content"
           />
         </div>
-        <div v-else-if="input.type === 'boolean'">
-          <label :for="input.label">{{ input.label }}</label>
+        <div v-else-if="input.type === 'image'">
+          <ImagePicker />
+        </div>
+        <div
+          v-else-if="input.type === 'boolean'"
+          class="flex items-center gap-3"
+        >
           <input
             type="checkbox"
             :name="input.label"
             :id="input.label"
             v-model="formData[input.name]"
             @change="(e) => onChange(e, input.name, input.type)"
-            class="mx-auto"
+            class="h-6 w-6"
           />
+          <label class="text-md" :for="input.label">{{ input.label }}</label>
         </div>
         <div v-else class="flex flex-col">
           <label :for="input.label">{{ input.label }}</label>
@@ -60,10 +66,12 @@
 import config from "../../supacms.config";
 import { supa } from "../supabase";
 import RichTextEditor from "./RichTextEditor.vue";
+import ImagePicker from "./ImagePicker.vue";
 
 export default {
   components: {
     RichTextEditor,
+    ImagePicker,
   },
   props: {
     row: {

@@ -1,0 +1,48 @@
+<template>
+  <div class="flex flex-col relative">
+    <label>Image URL</label>
+    <div class="flex gap-4 items-center">
+      <input v-model="imgUrl" class="flex-grow" type="text" name="" id="" />
+      <button @click="browseClick" class="px-3 py-3 border text-sm rounded-lg">
+        Browse
+      </button>
+    </div>
+    <img class="m-4" width="200" v-if="imgUrl.length" :src="imgUrl" alt="" />
+  </div>
+  <transition name="fade">
+    <div
+      v-if="showMenu"
+      @click.self="showMenu = false"
+      class="absolute z-10 bg-slate-800 bg-opacity-80 backdrop-blur-sm left-0 right-0 top-0 bottom-0 p-12 flex items-center justify-center overflow-hidden"
+    >
+      <div
+        class="bg-white flex-grow z-10 p-4 border shadow-md rounded-lg h-full"
+      >
+        <FileBrowser @select="selectImg" />
+      </div>
+    </div>
+  </transition>
+</template>
+
+<script>
+import FileBrowser from "./FileBrowser.vue";
+export default {
+  data() {
+    return {
+      imgUrl: "",
+      showMenu: false,
+    };
+  },
+  methods: {
+    selectImg(url) {
+      this.imgUrl = url;
+      this.showMenu = false;
+    },
+    browseClick() {
+      this.showMenu = true;
+      console.log("browseClick");
+    },
+  },
+  components: { FileBrowser },
+};
+</script>

@@ -23,7 +23,7 @@
     </div>
     <pre v-if="loading">loading...</pre>
     <pre v-if="error" class="bg-red-50">{{ error }}</pre>
-    <pre v-if="!loading && tableData.length === 0">    No data found</pre>
+    <pre v-if="!loading && tableData.length === 0">No data found</pre>
     <div v-if="!loading && tableData.length > 0">
       <table class="min-w-full divide-y divide-gray-200 mb-48">
         <thead
