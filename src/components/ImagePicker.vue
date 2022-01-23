@@ -27,16 +27,29 @@
 <script>
 import FileBrowser from "./FileBrowser.vue";
 export default {
+  props: {
+    url: {
+      type: String,
+      required: false,
+    },
+  },
   data() {
     return {
       imgUrl: "",
       showMenu: false,
     };
   },
+  mounted() {
+    console.log("URL", this.url);
+    if (this.url) {
+      this.imgUrl = this.url;
+    }
+  },
   methods: {
     selectImg(url) {
       this.imgUrl = url;
       this.showMenu = false;
+      this.$emit("select", url);
     },
     browseClick() {
       this.showMenu = true;

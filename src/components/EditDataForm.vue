@@ -14,7 +14,10 @@
           />
         </div>
         <div v-else-if="input.type === 'image'">
-          <ImagePicker />
+          <ImagePicker
+            :url="formData[input.name]"
+            @select="(e) => onChange(e, input.name, input.type)"
+          />
         </div>
         <div
           v-else-if="input.type === 'boolean'"
@@ -84,11 +87,10 @@ export default {
       formData: {},
     };
   },
-  mounted() {
+  created() {
     if (this.row.id) {
       this.formData = { ...this.row };
     }
-    console.log(this.row.id);
   },
 
   computed: {
@@ -123,10 +125,7 @@ export default {
     onChange(e, name, type) {
       const handlers = {
         image: () => {
-          const file = e.target.files[0];
-          this.formData[name + "_preview"] = URL.createObjectURL(file);
-          this.formData[name + "_name"] = file.name;
-          this.formData[name] = e.target.files[0];
+          this.formData[name] = e;
         },
         boolean: () => {
           this.formData[name] = e.target.checked;
