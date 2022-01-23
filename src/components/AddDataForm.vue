@@ -6,11 +6,11 @@
         v-for="input in tableConfig.cols"
         class="flex flex-col max-w-4xl mx-auto mt-4"
       >
-        <div
-          v-if="input.type === 'markdown'"
-          class="focus-within:border-blue-500 hover:border-blue-500 focus-within:ring-1 ring-offset-2 border border-gray-300 p-4 rounded-lg my-4"
-        >
+        <div v-if="input.type === 'markdown'" class="">
           <RichTextEditor ref="richTextEditor" />
+        </div>
+        <div v-else-if="input.type === 'image'">
+          <ImagePicker @select="(e) => onChange(e, input.name, input.type)" />
         </div>
         <div v-else-if="input.type === 'boolean'">
           <label :for="input.label">{{ input.label }}</label>
@@ -57,10 +57,12 @@
 import config from "../../supacms.config";
 import { supa } from "../supabase";
 import RichTextEditor from "./RichTextEditor.vue";
+import ImagePicker from "./ImagePicker.vue";
 
 export default {
   components: {
     RichTextEditor,
+    ImagePicker,
   },
   props: {},
   mounted() {},
@@ -93,7 +95,7 @@ export default {
       const data = {};
 
       for (const col of this.tableConfig.cols) {
-        if (col.type === "markdown") {
+        if (col.type === "markdown ") {
           data[col.name] = (
             await this.$refs.richTextEditor.editor.save()
           ).blocks;
@@ -119,10 +121,7 @@ export default {
     },
     onChange(e, name, type) {
       if (type === "image") {
-        const file = e.target.files[0];
-        this.formData[name + "_preview"] = URL.createObjectURL(file);
-        this.formData[name + "_name"] = file.name;
-        this.formData[name] = e.target.files[0];
+        this.formData[name] = e;
       } else if (type === "boolean") {
         this.formData[name] = e.target.checked;
       } else {

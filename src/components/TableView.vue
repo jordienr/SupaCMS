@@ -155,6 +155,7 @@ export default {
       this.showModal = true;
     },
     addDataHandler() {
+      this.modalType = "add";
       this.showModal = true;
     },
     checkIfItsImg(uri) {

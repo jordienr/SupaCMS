@@ -1,11 +1,19 @@
 <template>
   <div class="flex flex-col relative">
     <label>Image URL</label>
-    <div class="flex gap-4 items-center">
-      <input v-model="imgUrl" class="flex-grow" type="text" name="" id="" />
-      <button @click="browseClick" class="px-3 py-3 border text-sm rounded-lg">
-        Browse
+    <div class="flex gap-4 justify-center items-center">
+      <input
+        disabled
+        v-model="imgUrl"
+        class="flex-grow"
+        type="text"
+        name=""
+        id=""
+      />
+      <button v-if="imgUrl.length" @click="clear" class="btn-secondary">
+        Clear
       </button>
+      <button @click="browseClick" class="btn-primary">Browse</button>
     </div>
     <img class="m-4" width="200" v-if="imgUrl.length" :src="imgUrl" alt="" />
   </div>
@@ -46,6 +54,10 @@ export default {
     }
   },
   methods: {
+    clear() {
+      this.imgUrl = "";
+      this.$emit("select", "");
+    },
     selectImg(url) {
       this.imgUrl = url;
       this.showMenu = false;
