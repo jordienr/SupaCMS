@@ -1,20 +1,27 @@
 <template>
   <div class="">
     <div
-      class="flex justify-between items-center bg-white sticky top-0 backdrop-filter backdrop-blur-sm p-4 bg-opacity-90"
+      class="flex w-full flex-grow items-center justify-between bg-white bg-opacity-90 p-4 backdrop-blur-sm backdrop-filter"
     >
       <h1 class="font-medium">
         {{ tableConfig.label }} - {{ tableData.length }} items
       </h1>
-      <div class="flex gap-4">
+      <div class="ml-auto flex gap-4">
+        <input
+          type="text"
+          name="search"
+          id="search"
+          v-model="search"
+          placeholder="Search..."
+        />
         <button
           @click="refresh"
-          class="px-3 py-2 text-slate-500 border rounded-lg text-sm"
+          class="rounded-lg border px-3 py-2 text-sm text-slate-500"
         >
           Refresh
         </button>
         <button
-          class="px-3 py-2 bg-blue-500 text-white font-medium text-sm shadow-md rounded-lg hover:bg-blue-400"
+          class="rounded-lg bg-blue-500 px-3 py-2 text-sm font-medium text-white shadow-md hover:bg-blue-400"
           @click="addDataHandler"
         >
           Add data
@@ -24,14 +31,15 @@
     <pre v-if="loading">loading...</pre>
     <pre v-if="error" class="bg-red-50">{{ error }}</pre>
     <pre v-if="!loading && tableData.length === 0">No data found</pre>
-    <div v-if="!loading && tableData.length > 0">
-      <table class="min-w-full divide-y divide-gray-200 mb-48">
-        <thead
-          class="bg-white bg-opacity-80 backdrop-blur-sm backdrop-filter sticky top-16"
-        >
+    <div
+      v-if="!loading && tableData.length > 0"
+      class="min-h-screen overflow-auto"
+    >
+      <table class="mb-48 min-w-full divide-y divide-gray-200 overflow-x-auto">
+        <thead class="bg-white bg-opacity-80 backdrop-blur-sm backdrop-filter">
           <tr>
             <th
-              class="px-5 text-left text-xs font-medium text-gray-600 uppercase tracking-wider"
+              class="px-5 text-left text-xs font-medium uppercase tracking-wider text-gray-600"
               v-for="cl in colLabels"
               :key="cl"
             >
@@ -42,13 +50,13 @@
         </thead>
         <tbody>
           <tr
-            class="bg-white truncate border-t font-mono max-w-sm hover:bg-gray-50 transition-colors cursor-pointer"
-            v-for="(row, ind) in tableData"
+            class="max-w-sm cursor-pointer truncate border-t bg-white font-mono ring-inset transition-colors hover:bg-slate-50 hover:ring-1"
+            v-for="(row, ind) in tableDataSearch"
             :key="ind"
             @click="editRow(row)"
           >
             <td
-              class="px-6 py-3 max-w-md overflow-x-hidden overflow-ellipsis"
+              class="max-w-md overflow-x-hidden overflow-ellipsis px-6 py-3"
               v-for="td in row"
               :key="td"
             >
@@ -68,23 +76,29 @@
     <div
       v-if="showModal"
       @click.stop="showModal = false"
-      class="bg-gray-800 backdrop-blur-sm fixed top-0 left-0 z-index-1 w-full bg-opacity-70 h-screen flex justify-center items-center p-8"
+      class="fixed top-0 left-0 z-20 flex h-screen w-full items-center justify-center bg-gray-800 bg-opacity-70 p-8 backdrop-blur-sm"
     >
       <transition name="slide-fade">
         <div
           v-if="showModal"
           @click.stop
-          class="bg-white h-full w-full max-w-screen-lg mx-auto rounded-xl shadow-md"
+          class="mx-auto h-full w-full max-w-screen-lg rounded-xl bg-white shadow-md"
         >
           <AddDataForm
             v-if="modalType === 'add'"
             :row="selectedRow"
+            @submit="
+              () => {
+                showModal = false;
+                refresh();
+              }
+            "
             @cancel="showModal = false"
           ></AddDataForm>
           <EditDataForm
             v-else
             @cancel="showModal = false"
-            @submitted="
+            @submit="
               () => {
                 showModal = false;
                 refresh();
@@ -113,7 +127,11 @@ export default {
       error: undefined,
       showModal: false,
       selectedRow: {},
+      search: "",
     };
+  },
+  beforeRouteLeave(to, from, next) {
+    this.search = "";
   },
   computed: {
     table() {
@@ -132,6 +150,16 @@ export default {
       return this.cols.map((c) => c.name).join() + ", id";
     },
     addRowForm() {},
+    tableDataSearch() {
+      return this.tableData.filter((row) => {
+        return this.cols.some((col) => {
+          return row[col.name]
+            .toString()
+            .toLowerCase()
+            .includes(this.search.toLowerCase());
+        });
+      });
+    },
   },
   methods: {
     refresh() {

@@ -24,20 +24,20 @@ export default {
 
 <template>
   <div class="">
-    <div class="flex">
+    <div class="">
       <aside
         v-if="showSidebar"
-        class="w-56 bg-gradient-to-b from-slate-900 to-slate-800 text-slate-200 font-medium flex flex-col min-h-screen fixed border-r"
+        class="fixed z-10 flex min-h-screen w-56 flex-col border-r bg-gradient-to-b from-slate-900 to-slate-800 font-medium text-slate-200"
       >
         <h2
-          class="p-4 text-center font-semibold text-lg border-b border-slate-700"
+          class="border-b border-slate-700 p-4 text-center text-lg font-semibold"
         >
           <router-link class="logo" to="/">{{ appName }}</router-link>
         </h2>
 
-        <div class="flex flex-col mt-6">
+        <div class="mt-6 flex flex-col">
           <h3
-            class="text-xs font-semibold px-4 my-3 text-slate-400 uppercase tracking-widest"
+            class="my-3 px-4 text-xs font-semibold uppercase tracking-widest text-slate-400"
           >
             Content
           </h3>
@@ -53,7 +53,7 @@ export default {
 
         <div>
           <h3
-            class="text-xs font-semibold px-4 mb-3 mt-6 text-slate-400 uppercase tracking-widest"
+            class="mb-3 mt-6 px-4 text-xs font-semibold uppercase tracking-widest text-slate-400"
           >
             Files
           </h3>
@@ -64,14 +64,14 @@ export default {
           </div>
         </div>
 
-        <div class="mt-auto border-t py-4 border-slate-600">
+        <div class="mt-auto border-t border-slate-600 py-4">
           <router-link to="/settings" class="router-link text-center"
             >Settings</router-link
           >
         </div>
       </aside>
       <main
-        class="w-full"
+        class=""
         :class="{
           'ml-56': showSidebar,
         }"
@@ -96,10 +96,10 @@ button {
 }
 
 a.router-link {
-  @apply block px-4 py-2 my-1 mx-4 rounded-lg font-normal hover:bg-slate-700/30 text-slate-300 hover:text-slate-100;
+  @apply my-1 mx-4 block rounded-lg px-4 py-2 font-normal text-slate-300 hover:bg-slate-700/30 hover:text-slate-100;
 }
 
 a.router-link-active:not(.logo) {
-  @apply bg-slate-700/40 text-slate-100 highlight-slate-300/20 font-medium;
+  @apply highlight-slate-300/20 bg-slate-700/40 font-medium text-slate-100;
 }
 </style>

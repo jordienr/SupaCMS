@@ -59,7 +59,7 @@ const config = {
         {
           name: "tags",
           label: "Tags",
-          type: "text[]",
+          type: "list",
         },
         {
           name: "isAffiliateLink",
@@ -92,6 +92,11 @@ const config = {
           name: "published",
           label: "Published",
           type: "boolean",
+        },
+        {
+          name: "tags",
+          label: "Tags",
+          type: "list",
         },
       ],
     },

@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col relative">
+  <div class="relative flex flex-col">
     <label>Image URL</label>
-    <div class="flex gap-4 justify-center items-center">
+    <div class="flex items-center justify-center gap-4">
       <input
         disabled
         v-model="imgUrl"
@@ -21,10 +21,10 @@
     <div
       v-if="showMenu"
       @click.self="showMenu = false"
-      class="absolute z-10 bg-slate-800 bg-opacity-80 backdrop-blur-sm left-0 right-0 top-0 bottom-0 p-12 flex items-center justify-center overflow-hidden"
+      class="absolute left-0 right-0 top-0 bottom-0 z-10 flex items-center justify-center overflow-hidden bg-slate-800 bg-opacity-80 p-12 backdrop-blur-sm"
     >
       <div
-        class="bg-white flex-grow z-10 p-4 border shadow-md rounded-lg h-full"
+        class="z-10 h-full flex-grow rounded-lg border bg-white p-4 shadow-md"
       >
         <FileBrowser @select="selectImg" />
       </div>
@@ -41,6 +41,7 @@ export default {
       required: false,
     },
   },
+  emits: ["select"],
   data() {
     return {
       imgUrl: "",

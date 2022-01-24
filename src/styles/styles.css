@@ -18,10 +18,13 @@ label {
 }
 
 .btn-primary {
-  @apply bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-400 shadow-md font-medium focus:ring-2 focus:ring-offset-2 focus:border-blue-500;
+  @apply bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-400 shadow-md font-medium focus:border-blue-500;
 }
 .btn-secondary {
-  @apply bg-white text-blue-500 ring-1 px-3 py-2 rounded-lg hover:bg-blue-50 shadow-md font-medium focus:ring-2 focus:ring-offset-2 focus:border-gray-500;
+  @apply bg-white text-blue-500 ring-1 px-3 py-2 rounded-lg hover:bg-blue-50 shadow-md font-medium focus:border-gray-500;
+}
+.btn-cancel {
+  @apply bg-white text-red-500 ring-1 ring-red-400 px-3 py-2 rounded-lg hover:bg-red-50 shadow-md font-medium focus:border-red-500;
 }
 
 .fade-enter-active {
