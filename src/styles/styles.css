@@ -10,21 +10,24 @@
 }
 
 input[type="text"] {
-  @apply border px-3 py-2 rounded-lg hover:border-blue-300 focus:ring-1  ring-blue-400 focus:border-blue-500 transition-all;
+  @apply rounded-lg border px-3 py-2 ring-blue-400 transition-all  hover:border-blue-300 focus:border-blue-500 focus:ring-1;
 }
 
 label {
-  @apply text-gray-700 font-medium text-sm mb-2;
+  @apply mb-2 text-sm font-medium text-gray-700;
 }
 
 .btn-primary {
-  @apply bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-400 shadow-md font-medium focus:border-blue-500;
+  @apply rounded-lg bg-blue-500 px-3 py-2 font-medium text-white shadow-md hover:bg-blue-400 focus:border-blue-500;
 }
 .btn-secondary {
-  @apply bg-white text-blue-500 ring-1 px-3 py-2 rounded-lg hover:bg-blue-50 shadow-md font-medium focus:border-gray-500;
+  @apply rounded-lg bg-white px-3 py-2 font-medium text-blue-500 shadow-md ring-1 hover:bg-blue-50 focus:border-gray-500;
 }
 .btn-cancel {
-  @apply bg-white text-red-500 ring-1 ring-red-400 px-3 py-2 rounded-lg hover:bg-red-50 shadow-md font-medium focus:border-red-500;
+  @apply rounded-lg bg-white px-3 py-2 font-medium text-red-500 shadow-md ring-1 ring-red-400 hover:bg-red-50 focus:border-red-500;
+}
+button {
+  @apply cursor-pointer rounded-lg px-3 py-2 shadow-md ring-1 ring-slate-300 hover:bg-slate-100;
 }
 
 .fade-enter-active {

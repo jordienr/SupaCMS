@@ -24,7 +24,7 @@
       class="absolute left-0 right-0 top-0 bottom-0 z-10 flex items-center justify-center overflow-hidden bg-slate-800 bg-opacity-80 p-12 backdrop-blur-sm"
     >
       <div
-        class="z-10 h-full flex-grow rounded-lg border bg-white p-4 shadow-md"
+        class="z-10 h-full max-w-4xl flex-grow overflow-auto rounded-lg border bg-white p-4 shadow-md"
       >
         <FileBrowser @select="selectImg" />
       </div>

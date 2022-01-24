@@ -1,5 +1,5 @@
 <template>
-  <div class="pb-4 border-b">
+  <div class="border-b pb-4">
     <h2 class="font-medium">File Browser</h2>
   </div>
   <div class="my-4">
@@ -9,32 +9,37 @@
       <div v-if="selectedBucket">
         <button @click="selectedBucket = null">Go back</button>
         <h3 class="py-4 font-medium">{{ selectedBucket.name }}</h3>
-        <div v-for="file in bucketFiles" class="flex flex-col border-y py-4">
+        <div v-for="file in bucketFiles" class="flex gap-4 border-y py-4">
+          <img width="100" v-if="isImg(file)" :src="file.publicURL" alt="" />
           <label for="">Name</label>
           <pre>{{ file.name }}</pre>
-
-          <label class="mt-2" for="">URL</label>
-          <pre>{{ file.publicURL }}</pre>
-          <div class="flex justify-end">
-            <button class="btn-primary" @click="selectUrl(file.publicURL)">
+          <div class="ml-auto flex items-end">
+            <button class="btn-secondary" @click="selectUrl(file.publicURL)">
               Select
             </button>
           </div>
         </div>
+        <div class="mt-4">
+          <FileUploader
+            @submit="onSubmit"
+            :bucket="selectedBucket.name"
+            :path="path"
+          />
+        </div>
       </div>
 
       <!-- BUCKET PICKER -->
-      <div
+      <button
         v-else
         v-for="bucket in buckets"
-        class="flex items-center mb-4 py-2 px-4 border rounded-md"
+        class="mb-4 flex w-full items-center rounded-md border py-2 px-4 text-left"
         @click="selectBucket(bucket)"
       >
         <div class="flex-grow">
           <h3 class="font-medium">{{ bucket.name }}</h3>
           <p class="text-xs">{{ bucket.public ? "public" : "private" }}</p>
         </div>
-      </div>
+      </button>
     </div>
     <pre v-else>
 No buckets found. Make sure you have created a bucket and have SELECT permissions for your user.
@@ -47,6 +52,7 @@ Read more at:
 
 <script>
 import { fetchBuckets, fetchBucketFiles } from "../core";
+import FileUploader from "./FileUploader.vue";
 
 export default {
   data() {
@@ -55,6 +61,7 @@ export default {
       buckets: [],
       selectedBucket: "",
       bucketFiles: [],
+      path: "",
     };
   },
   async mounted() {
@@ -62,6 +69,15 @@ export default {
     this.loading = false;
   },
   methods: {
+    async onSubmit() {
+      console.log("SUBMIT!!!");
+      this.loading = true;
+      this.bucketFiles = await fetchBucketFiles(this.selectedBucket.name);
+      this.loading = false;
+    },
+    isImg(file) {
+      return file.metadata?.mimetype?.startsWith("image/");
+    },
     selectBucket(bucket) {
       this.selectedBucket = bucket;
       this.fetchBucketFiles(bucket);
@@ -73,5 +89,6 @@ export default {
       this.bucketFiles = await fetchBucketFiles(bucket.name);
     },
   },
+  components: { FileUploader },
 };
 </script>
