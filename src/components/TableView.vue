@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div
-      class="flex w-full flex-grow items-center justify-between bg-white bg-opacity-90 p-4 backdrop-blur-sm backdrop-filter"
+      class="flex w-full flex-grow items-center justify-between bg-white p-4 sticky top-0 border-b z-20 backdrop-blur-md bg-opacity-50"
     >
       <h1 class="font-medium">
         {{ tableConfig.label }} - {{ tableData.length }} items
@@ -12,20 +12,11 @@
           name="search"
           id="search"
           v-model="search"
+          autocomplete="off"
           placeholder="Search..."
         />
-        <button
-          @click="refresh"
-          class="rounded-lg border px-3 py-2 text-sm text-slate-500"
-        >
-          Refresh
-        </button>
-        <button
-          class="rounded-lg bg-blue-500 px-3 py-2 text-sm font-medium text-white shadow-md hover:bg-blue-400"
-          @click="addDataHandler"
-        >
-          Add data
-        </button>
+        <button @click="refresh" class="btn">Refresh</button>
+        <button class="btn-primary" @click="addDataHandler">Add data</button>
       </div>
     </div>
     <pre v-if="loading">loading...</pre>
@@ -35,33 +26,50 @@
       v-if="!loading && tableData.length > 0"
       class="min-h-screen overflow-auto"
     >
-      <table class="mb-48 min-w-full divide-y divide-gray-200 overflow-x-auto">
+      <table
+        class="mt-4 mb-48 min-w-full divide-y divide-gray-200 overflow-x-auto"
+      >
         <thead class="bg-white bg-opacity-80 backdrop-blur-sm backdrop-filter">
           <tr>
             <th
-              class="px-5 text-left text-xs font-medium uppercase tracking-wider text-gray-600"
-              v-for="cl in colLabels"
-              :key="cl"
+              class="px-5 py-2 text-left text-xs font-medium uppercase tracking-wider text-gray-600"
+              v-for="h in tableHeaders"
+              :key="h.name"
+              :class="{ 'text-right': h.align === 'right' }"
             >
-              {{ cl }}
+              {{ h.label }}
             </th>
-            <th>Id</th>
           </tr>
         </thead>
         <tbody>
           <tr
-            class="max-w-sm cursor-pointer truncate border-t bg-white font-mono ring-inset transition-colors hover:bg-slate-50 hover:ring-1"
+            class="max-w-sm cursor-pointer truncate border-t bg-white font-mono ring-inset transition-colors hover:bg-blue-50"
             v-for="(row, ind) in tableDataSearch"
             :key="ind"
             @click="editRow(row)"
           >
             <td
               class="max-w-md overflow-x-hidden overflow-ellipsis px-6 py-3"
-              v-for="td in row"
+              v-for="(td, name) in normalizeRow(row)"
               :key="td"
+              :class="{ ...getTdClasses(name) }"
             >
-              <span v-if="checkIfItsImg(td)">
+              <span v-if="name === 'id'"></span>
+              <span v-else-if="checkIfItsImg(td)">
                 <img :src="td" class="h-8 w-8" />
+              </span>
+              <span v-else-if="Array.isArray(td)">{{ td.join(", ") }}</span>
+              <span v-else-if="typeof td === 'boolean'">
+                <span
+                  class="rounded-lg bg-green-100 px-2 py-1 text-green-600"
+                  v-if="td"
+                  >✔</span
+                >
+                <span
+                  class="rounded-lg bg-red-100 px-2 py-1 text-red-600"
+                  v-else
+                  >✖</span
+                >
               </span>
               <span v-else>
                 {{ td }}
@@ -143,13 +151,15 @@ export default {
     cols() {
       return this.tableConfig.cols;
     },
+    tableHeaders() {
+      return this.tableConfig.cols.filter((c) => c.hideInTable !== true);
+    },
     colLabels() {
       return this.cols.map((c) => c.label);
     },
     colSelect() {
       return this.cols.map((c) => c.name).join() + ", id";
     },
-    addRowForm() {},
     tableDataSearch() {
       return this.tableData.filter((row) => {
         return this.cols.some((col) => {
@@ -162,6 +172,27 @@ export default {
     },
   },
   methods: {
+    getTdClasses(name) {
+      const classes = {};
+
+      const col = this.cols.find((c) => c.name === name);
+
+      if (col?.align) {
+        classes[`text-${col.align}`] = true;
+      }
+      return classes;
+    },
+    normalizeRow(row) {
+      const copy = { ...row };
+      // only keep cols that don't have hideInTable set to true
+      this.cols.forEach((c) => {
+        console.log(c);
+        if (c.hideInTable) {
+          delete copy[c.name];
+        }
+      });
+      return copy;
+    },
     refresh() {
       this.fetchTableData();
     },

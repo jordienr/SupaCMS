@@ -10,24 +10,28 @@
 }
 
 input[type="text"] {
-  @apply rounded-lg border px-3 py-2 ring-blue-400 transition-all  hover:border-blue-300 focus:border-blue-500 focus:ring-1;
+  @apply rounded-lg border px-3 py-2 ring-blue-400 transition-all  hover:border-blue-300  focus:border-blue-500 focus:ring-1;
 }
 
 label {
   @apply mb-2 text-sm font-medium text-gray-700;
 }
 
-.btn-primary {
-  @apply rounded-lg bg-blue-500 px-3 py-2 font-medium text-white shadow-md hover:bg-blue-400 focus:border-blue-500;
-}
-.btn-secondary {
-  @apply rounded-lg bg-white px-3 py-2 font-medium text-blue-500 shadow-md ring-1 hover:bg-blue-50 focus:border-gray-500;
-}
-.btn-cancel {
-  @apply rounded-lg bg-white px-3 py-2 font-medium text-red-500 shadow-md ring-1 ring-red-400 hover:bg-red-50 focus:border-red-500;
-}
 button {
-  @apply cursor-pointer rounded-lg px-3 py-2 shadow-md ring-1 ring-slate-300 hover:bg-slate-100;
+  @apply cursor-pointer rounded-lg px-3 py-2 bg-white hover:opacity-80 transition-all text-sm;
+}
+
+button.btn-primary {
+  @apply bg-blue-500 text-white focus:border-blue-500 hover:text-white shadow-md shadow-blue-600/30;
+}
+button.btn-secondary {
+  @apply text-blue-500 ring-1 hover:bg-blue-50 focus:border-gray-500;
+}
+button.btn-cancel {
+  @apply text-red-500 ring-1 ring-red-400 hover:bg-red-50 focus:border-red-500;
+}
+button.btn {
+  @apply ring-1 ring-slate-200 hover:ring-blue-300 hover:text-blue-600;
 }
 
 .fade-enter-active {
