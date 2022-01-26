@@ -1,5 +1,11 @@
 <template>
-  <div>Home View</div>
+  <div>
+    <pre>
+
+      👋 hello world
+      
+    </pre>
+  </div>
 </template>
 
 <script>

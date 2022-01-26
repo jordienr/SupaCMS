@@ -29,15 +29,15 @@
       <table
         class="mt-4 mb-48 min-w-full divide-y divide-gray-200 overflow-x-auto"
       >
-        <thead class="bg-white bg-opacity-80 backdrop-blur-sm backdrop-filter">
+        <thead class="bg-opacity-80 backdrop-blur-sm backdrop-filter">
           <tr>
             <th
-              class="px-5 py-2 text-left text-xs font-medium uppercase tracking-wider text-gray-600"
+              class="px-5 py-2 text-left text-xs font-medium uppercase tracking-wider text-gray-600 bg-transparent"
               v-for="h in tableHeaders"
               :key="h.name"
               :class="{ 'text-right': h.align === 'right' }"
             >
-              {{ h.label }}
+              {{ h.label || h.name }}
             </th>
           </tr>
         </thead>
@@ -200,7 +200,10 @@ export default {
       this.loading = true;
       const { data, error } = await supa
         .from(this.table)
-        .select(this.colSelect);
+        .select(this.colSelect)
+        .order("created_at", {
+          ascending: false,
+        });
       this.tableData = data || [];
       this.error = error;
       this.loading = false;

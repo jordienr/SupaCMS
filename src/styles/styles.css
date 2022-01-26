@@ -14,7 +14,7 @@ input[type="text"] {
 }
 
 label {
-  @apply mb-2 text-sm font-medium text-gray-700;
+  @apply mb-2 text-sm font-medium text-gray-700 capitalize;
 }
 
 button {

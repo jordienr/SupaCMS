@@ -9,22 +9,35 @@
       <div v-if="selectedBucket">
         <button @click="selectedBucket = null">Go back</button>
         <h3 class="py-4 font-medium">{{ selectedBucket.name }}</h3>
-        <div v-for="file in bucketFiles" class="flex gap-4 border-y py-4">
-          <img width="100" v-if="isImg(file)" :src="file.publicURL" alt="" />
-          <label for="">Name</label>
-          <pre>{{ file.name }}</pre>
-          <div class="ml-auto flex items-end">
-            <button class="btn-secondary" @click="selectUrl(file.publicURL)">
-              Select
-            </button>
+        <div class="flex flex-col">
+          <div class="max-h-96 overflow-auto bg-slate-50">
+            <div
+              v-for="file in bucketFiles"
+              class="flex px-4 gap-4 border-y py-4"
+            >
+              <img width="60" v-if="isImg(file)" :src="file.publicURL" alt="" />
+              <div>
+                <label for="">Name</label>
+                <pre>{{ file.name }}</pre>
+              </div>
+              <div class="ml-auto flex items-end">
+                <button
+                  class="btn-secondary"
+                  @click="selectUrl(file.publicURL)"
+                >
+                  Select
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="mt-4">
-          <FileUploader
-            @submit="onSubmit"
-            :bucket="selectedBucket.name"
-            :path="path"
-          />
+
+          <div class="mt-4">
+            <FileUploader
+              @submit="onSubmit"
+              :bucket="selectedBucket.name"
+              :path="path"
+            />
+          </div>
         </div>
       </div>
 
@@ -70,7 +83,6 @@ export default {
   },
   methods: {
     async onSubmit() {
-      console.log("SUBMIT!!!");
       this.loading = true;
       this.bucketFiles = await fetchBucketFiles(this.selectedBucket.name);
       this.loading = false;

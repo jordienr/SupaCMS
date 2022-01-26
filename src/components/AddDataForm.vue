@@ -12,11 +12,15 @@
             ref="richTextEditor"
           />
         </div>
+        <div v-else-if="input.type === 'list'">
+          <label :for="input.name">{{ input.label || input.name }}</label>
+          <InputList @change="(e) => onChange(e, input.name, input.type)" />
+        </div>
         <div v-else-if="input.type === 'image'">
           <ImagePicker @select="(e) => onChange(e, input.name, input.type)" />
         </div>
         <div v-else-if="input.type === 'boolean'">
-          <label :for="input.label">{{ input.label }}</label>
+          <label :for="input.label">{{ input.label || input.name }}</label>
           <input
             type="checkbox"
             :name="input.label"
@@ -26,7 +30,7 @@
           />
         </div>
         <div v-else class="flex flex-col">
-          <label :for="input.label">{{ input.label }}</label>
+          <label :for="input.label">{{ input.label || input.name }}</label>
           <input
             :ref="input.name"
             :id="input.label"
@@ -61,11 +65,13 @@ import config from "../../supacms.config";
 import { supa } from "../supabase";
 import RichTextEditor from "./RichTextEditor.vue";
 import ImagePicker from "./ImagePicker.vue";
+import InputList from "./InputList.vue";
 
 export default {
   components: {
     RichTextEditor,
     ImagePicker,
+    InputList,
   },
   props: {},
   mounted() {},
@@ -111,6 +117,10 @@ export default {
         }
       } else if (type === "boolean") {
         this.formData[name] = e.target.checked;
+      } else if (type === "list") {
+        if (Array.isArray(e)) {
+          this.formData[name] = e;
+        }
       } else {
         this.formData[name] = e.target.value;
       }

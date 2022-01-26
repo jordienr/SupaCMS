@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <input type="text" v-model="vList" @change="$emit('change', listArray)" />
+    <input type="text" v-model="vList" @change="onChange" />
     <small>Separate items with a comma.</small>
   </div>
 </template>
@@ -25,9 +25,16 @@ export default {
       this.vList = this.list.join(", ");
     }
   },
+  methods: {
+    onChange() {
+      console.log(this.listArray);
+      this.$emit("change", this.listArray);
+    },
+  },
   computed: {
     listArray() {
-      return this.vList.split(",").map((item) => item.trim());
+      const arr = this.vList.split(",").map((item) => item.trim());
+      return arr;
     },
   },
 };

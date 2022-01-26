@@ -1,7 +1,6 @@
 const config = {
-  appName: "SupaCMS",
+  appName: "Toolhunt Admin",
   supabaseUrl: "https://jxcnfvxwqmeuomyvekfo.supabase.co",
-  // schema: "/rest/v1/?apikey=${anon.value}",
   supabaseAnonKey:
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzODU0Nzk5MSwiZXhwIjoxOTU0MTIzOTkxfQ.IDkHBcS4YasquJ12_RoXz5SLtX7tXCay0RpnWpODpb0",
   tables: [
@@ -27,13 +26,11 @@ const config = {
       cols: [
         {
           name: "logo",
-          label: "Logo",
           type: "image",
           bucket: "logos",
         },
         {
           name: "name",
-          label: "Name",
           type: "text",
         },
         {
@@ -44,25 +41,21 @@ const config = {
         },
         {
           name: "slug",
-          label: "Slug",
           type: "text",
           hideInTable: true,
         },
         {
           name: "website",
-          label: "Website",
           type: "text",
           hideInTable: false,
         },
         {
           name: "pricing",
-          label: "Pricing",
           type: "text",
           hideInTable: false,
         },
         {
           name: "tags",
-          label: "Tags",
           type: "list",
           hideInTable: true,
         },
@@ -70,6 +63,7 @@ const config = {
           name: "isAffiliateLink",
           label: "Affiliate",
           type: "boolean",
+          align: "right",
           hideInTable: false,
         },
       ],
@@ -105,6 +99,30 @@ const config = {
           label: "Published",
           type: "boolean",
           align: "right",
+        },
+      ],
+    },
+    {
+      name: "collections",
+      label: "Collections",
+      cols: [
+        {
+          name: "title",
+          type: "text",
+        },
+        {
+          name: "slug",
+          type: "text",
+        },
+        {
+          name: "desc",
+          label: "Description",
+          type: "text",
+          hideInTable: true,
+        },
+        {
+          name: "tools",
+          type: "list",
         },
       ],
     },

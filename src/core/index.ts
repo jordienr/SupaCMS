@@ -14,7 +14,7 @@ export const fetchBucketFiles = async (bucketName: string) => {
   const { data, error } = await supa.storage.from(bucketName).list(undefined, {
     limit: 100,
     offset: 0,
-    sortBy: { column: "name", order: "asc" },
+    sortBy: { column: "created_at", order: "desc" },
   });
 
   console.log("DATA >> ", data, error);
