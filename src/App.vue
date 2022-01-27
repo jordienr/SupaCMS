@@ -23,7 +23,7 @@ export default {
 </script>
 
 <template>
-  <div class="">
+  <div class="app-container mx-auto">
     <div class="">
       <aside
         v-if="showSidebar"

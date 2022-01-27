@@ -4,7 +4,6 @@ import { supa } from "../supabase";
 export const fetchBuckets = async () => {
   const { data, error } = await supa.storage.listBuckets();
 
-  console.log("fetchBuckets", { data, error });
   return data;
 };
 
@@ -17,8 +16,6 @@ export const fetchBucketFiles = async (bucketName: string) => {
     sortBy: { column: "created_at", order: "desc" },
   });
 
-  console.log("DATA >> ", data, error);
-
   data?.forEach((file) => {
     const url = supa.storage.from(bucketName).getPublicUrl(file.name);
 
@@ -27,8 +24,6 @@ export const fetchBucketFiles = async (bucketName: string) => {
       ...url,
     });
   });
-
-  console.log("fetchBucketFiles", { data, error });
 
   return files;
 };

@@ -47,7 +47,6 @@ export default {
           cacheControl: "3600",
           upsert: false,
         });
-      console.log(data, error);
       this.$emit("submit");
     },
   },

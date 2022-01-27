@@ -186,7 +186,6 @@ export default {
       const copy = { ...row };
       // only keep cols that don't have hideInTable set to true
       this.cols.forEach((c) => {
-        console.log(c);
         if (c.hideInTable) {
           delete copy[c.name];
         }

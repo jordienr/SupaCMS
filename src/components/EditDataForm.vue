@@ -139,8 +139,6 @@ export default {
         .match({ id: this.row.id });
 
       this.$emit("submit");
-
-      console.log("Submit", data, error);
     },
     onChange(e, name, type) {
       const handlers = {
@@ -164,7 +162,6 @@ export default {
           }
         },
       };
-      console.log(e, name, type);
       handlers[type](e);
     },
   },

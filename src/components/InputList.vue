@@ -27,7 +27,6 @@ export default {
   },
   methods: {
     onChange() {
-      console.log(this.listArray);
       this.$emit("change", this.listArray);
     },
   },

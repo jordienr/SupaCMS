@@ -49,7 +49,6 @@ export default {
     };
   },
   mounted() {
-    console.log("URL", this.url);
     if (this.url) {
       this.imgUrl = this.url;
     }
@@ -66,7 +65,6 @@ export default {
     },
     browseClick() {
       this.showMenu = true;
-      console.log("browseClick");
     },
   },
   components: { FileBrowser },
