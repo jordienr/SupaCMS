@@ -1,4 +1,3 @@
-import { NavigationGuardNext, RouteRecord } from "vue-router";
 import config from "../../supacms.config";
 import { supa } from "../supabase";
 
@@ -44,11 +43,7 @@ export const routes = [
     meta: {
       public: true,
     },
-    beforeEnter: (
-      to: RouteRecord,
-      from: RouteRecord,
-      next: NavigationGuardNext
-    ) => {
+    beforeEnter: () => {
       supa.auth.signOut().then((d) => {
         window.location.reload();
       });

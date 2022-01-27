@@ -9,14 +9,14 @@ export const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const isLoggedIn = supa.auth.user();
-  const routeIsPublic = to.meta.public || false;
 
   let nextPath = to.path;
 
-  if (!isLoggedIn && !routeIsPublic) {
+  if (!isLoggedIn) {
     nextPath = "/login";
   }
 
+  console.log(nextPath);
   if (nextPath === to.path) {
     next();
   } else {

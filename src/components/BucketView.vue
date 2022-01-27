@@ -1,22 +1,50 @@
 <template>
   <div>
-    <h1 class="p-4 font-medium text-lg">Bucket: {{ $route.params.bucket }}</h1>
+    <h1 class="p-4 font-medium text-lg">{{ files.length }} files</h1>
 
-    <div
-      v-for="file in files"
-      class="m-4 border border-slate-500 rounded-lg p-4"
-    >
-      <div v-if="file.id">
-        <img v-if="file.isImage" width="300" :src="file.publicURL" alt="" />
-        <pre>{{ file }}</pre>
-        <button
-          class="px-3 py-2 border border-slate-400 rounded-lg m-4"
-          @click="deleteFile(file.id)"
-        >
-          Delete
-        </button>
+    <div v-for="file in files" class="m-2">
+      <div
+        v-if="file.id"
+        class="bg-white hover:shadow-md transition-shadow ring-1 ring-slate-300 rounded-lg flex justify-between"
+      >
+        <div class="flex gap-4">
+          <img
+            class="rounded-md object-contain bg-slate-200 m-1 ring-1 ring-slate-300"
+            v-if="file.isImage"
+            width="100"
+            :src="file.publicURL"
+            alt=""
+          />
+          <!-- <pre>{{ file }}</pre> -->
+          <div class="my-4">
+            <p class="font-medium">
+              {{ file.name }}
+            </p>
+            <p class="text-xs font-mono overflow-hidden">
+              {{ formatSize(file.metadata.size) }}
+            </p>
+            <p
+              class="overflow-hidden max-w-md text-xs font-mono tracking-tighter"
+            >
+              {{ file.publicURL }}
+            </p>
+          </div>
+        </div>
+        <div class="flex items-end m-4">
+          <button class="btn-cancel" @click="deleteFile(file.id)">
+            Delete
+          </button>
+        </div>
       </div>
-      <div v-else>folder: {{ file.name }}</div>
+      <div v-else class="">
+        <span class="text-6xl">📂</span>
+        <span>
+          {{ file.name || "" }}
+        </span>
+      </div>
+      <!-- <pre class="h-24 overflow-auto bg-slate-800 text-white p-2 rounded-lg">{{
+        file
+      }}</pre> -->
     </div>
   </div>
 </template>
@@ -35,8 +63,14 @@ export default {
     this.fetchBucketFiles();
   },
   methods: {
+    deleteFile(id) {
+      console.log(id);
+    },
     isImage(f) {
-      return f.metadata?.mimetype?.includes("image") || false;
+      return f.metadata?.mimetype?.includes("image");
+    },
+    formatSize(size) {
+      return (size / 1024 / 1024).toFixed(2) + " MB" || "0 MB";
     },
     async fetchBucketFiles() {
       const { data, error } = await supa.storage
