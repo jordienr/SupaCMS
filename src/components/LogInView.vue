@@ -17,14 +17,13 @@
       <button
         class="px-3 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md w-full mt-4 hover:bg-blue-400"
         type="submit"
-        @click="login"
       >
         Log In
       </button>
     </div>
     <div v-else>
       <p
-        class="text-2xl bg-green-100 p-3 px-6 rounded border border-green-300 text-gray-50-green-800"
+        class="font-medium bg-green-100 p-2 px-4 rounded border border-green-300 text-green-800"
       >
         Email sent
       </p>

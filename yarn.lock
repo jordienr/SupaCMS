@@ -287,9 +287,9 @@
     "@vue/shared" "3.2.21"
 
 "@vue/devtools-api@^6.0.0-beta.18":
-  version "6.0.0-beta.20"
-  resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.0.0-beta.20.tgz#b5405c9a84fb44687d05e7c4c7854b1639141106"
-  integrity sha512-21u2jFOk8jbAneeGpDwZQ0W66RJa0IBDUyVl6SgKnn2cRFjLWzKj+ukXjpLhYr1KASyCe5E5U4jXwChVo0YUAw==
+  version "6.0.0-beta.21.1"
+  resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.0.0-beta.21.1.tgz#f1410f53c42aa67fa3b01ca7bdba891f69d7bc97"
+  integrity sha512-FqC4s3pm35qGVeXRGOjTsRzlkJjrBLriDS9YXbflHLsfA9FrcKzIyWnLXoNm+/7930E8rRakXuAc2QkC50swAw==
 
 "@vue/reactivity@3.2.21", "@vue/reactivity@^3.2.19":
   version "3.2.21"

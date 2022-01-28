@@ -58,7 +58,7 @@ export default {
             Files
           </h3>
           <div v-for="bucket in buckets">
-            <router-link class="router-link" :to="`/files/${bucket.name}`">
+            <router-link class="router-link" :to="'/files/' + bucket.name">
               {{ bucket.label }}
             </router-link>
           </div>

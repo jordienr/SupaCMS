@@ -1,6 +1,6 @@
 <template>
   <h2 class="p-4 font-medium border-b bg-white">Settings</h2>
-  <div class="max-w-2xl mx-auto p-2 px-4">
+  <div class="max-w-2xl mx-auto p-2 px-4 pb-36">
     <h3>User</h3>
     <p>{{ user.email }}</p>
     <pre class="text-gray-200 bg-gray-800 rounded overflow-scroll h-96 my-4">{{

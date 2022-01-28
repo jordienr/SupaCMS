@@ -7,7 +7,8 @@ export const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeResolve((to, from, next) => {
+  console.log("beforeEach");
   const isLoggedIn = supa.auth.user();
 
   let nextPath = to.path;
@@ -16,7 +17,6 @@ router.beforeEach((to, from, next) => {
     nextPath = "/login";
   }
 
-  console.log(nextPath);
   if (nextPath === to.path) {
     next();
   } else {

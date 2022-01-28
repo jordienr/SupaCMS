@@ -140,6 +140,7 @@ export default {
   },
   beforeRouteLeave(to, from, next) {
     this.search = "";
+    next();
   },
   computed: {
     table() {

@@ -60,6 +60,7 @@ export default {
   },
   computed: {},
   mounted() {
+    console.log("mounted bucket view");
     this.fetchBucketFiles();
   },
   methods: {

@@ -1,4 +1,3 @@
-import config from "../../supacms.config";
 import { supa } from "../supabase";
 
 export const routes = [
@@ -8,7 +7,6 @@ export const routes = [
     component: () => import("../components/HomeView.vue"),
     meta: {
       showSidebar: true,
-      title: config.appName,
     },
   },
   {
@@ -21,7 +19,7 @@ export const routes = [
   },
   {
     path: "/files/:bucket",
-    name: "Bucket",
+    name: "Files",
     meta: {
       showSidebar: true,
     },
