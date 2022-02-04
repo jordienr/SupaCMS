@@ -48,7 +48,7 @@
           alt=""
         />
       </div>
-      <pre
+      <pre class="overflow-x-auto p-4 rounded-lg bg-slate-800 text-white mt-12"
         >{{ formData }}
       </pre>
     </div>

@@ -30,7 +30,7 @@ export default {
         class="fixed z-10 flex min-h-screen w-56 flex-col border-r bg-gradient-to-b from-slate-900 to-slate-800 font-medium text-slate-200"
       >
         <h2
-          class="border-b border-slate-700 p-4 text-center text-lg font-semibold"
+          class="border-b border-slate-700 p-4 text-center text-lg font-medium"
         >
           <router-link class="logo" to="/">{{ appName }}</router-link>
         </h2>

@@ -30,7 +30,6 @@ export const routes = [
     name: "LogIn",
     meta: {
       public: true,
-      publicOnly: true,
       showSidebar: false,
     },
     component: () => import("../components/LogInView.vue"),

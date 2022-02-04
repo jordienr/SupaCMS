@@ -51,13 +51,15 @@
             @change="(e) => onChange(e, input.name, input.type)"
           />
         </div>
-        <img
-          class="mx-auto mt-4 border"
-          v-if="input.type === 'image' && formData[input.name + '_preview']"
-          width="140"
-          :src="formData[input.name + '_preview']"
-          alt=""
-        />
+        <div class="flex">
+          <img
+            class="mx-auto mt-4 border"
+            v-if="input.type === 'image' && formData[input.name + '_preview']"
+            width="140"
+            :src="formData[input.name + '_preview']"
+            alt=""
+          />
+        </div>
       </div>
       <pre
         class="m-4 mt-12 overflow-auto rounded-lg border-t bg-slate-800 p-4 pt-12 text-gray-100"

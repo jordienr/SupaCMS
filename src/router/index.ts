@@ -8,18 +8,20 @@ export const router = createRouter({
 });
 
 router.beforeResolve((to, from, next) => {
-  console.log("beforeEach");
+  const isPublic = to.matched.some((record) => record.meta.public);
   const isLoggedIn = supa.auth.user();
 
-  let nextPath = to.path;
-
-  if (!isLoggedIn) {
-    nextPath = "/login";
-  }
-
-  if (nextPath === to.path) {
+  if (isPublic) {
+    console.log("isPublic");
     next();
   } else {
-    next(nextPath);
+    console.log("notPublic");
+    if (!isLoggedIn) {
+      console.log("GoToLogin");
+      next("/login");
+    } else {
+      console.log("Next");
+      next();
+    }
   }
 });
