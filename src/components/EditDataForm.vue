@@ -78,7 +78,7 @@
   </div>
 </template>
 <script>
-import config from "../../supacms.config";
+import config from "@/config/";
 import { supa } from "../supabase";
 import RichTextEditor from "./RichTextEditor.vue";
 import ImagePicker from "./ImagePicker.vue";

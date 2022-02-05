@@ -173,6 +173,9 @@ export default {
     },
   },
   methods: {
+    isDate(date) {
+      return new Date(date) !== "Invalid Date" && !isNaN(new Date(date));
+    },
     getTdClasses(name) {
       const classes = {};
 

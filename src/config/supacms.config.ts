@@ -1,4 +1,6 @@
-const config = {
+import { Config } from "./config";
+
+const config: Config = {
   appName: "Toolhunt Admin",
   supabaseUrl: "https://jxcnfvxwqmeuomyvekfo.supabase.co",
   supabaseAnonKey:
@@ -16,7 +18,7 @@ const config = {
         {
           name: "created_at",
           label: "Created at",
-          type: "text",
+          type: "date",
         },
       ],
     },

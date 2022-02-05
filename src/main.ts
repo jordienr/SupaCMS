@@ -4,7 +4,7 @@ import { router } from "./router";
 import "./styles/styles.css";
 import { supa } from "./supabase";
 import "easymde/dist/easymde.min.css";
-import config from "../supacms.config";
+import config from "@/config";
 
 const app = createApp(App).use(router);
 

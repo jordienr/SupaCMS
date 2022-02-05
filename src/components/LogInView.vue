@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import supacmsConfig from "../../supacms.config";
+import supacmsConfig from "@/config/";
 import { supa } from "../supabase";
 export default {
   data: () => ({

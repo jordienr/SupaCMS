@@ -1,4 +1,4 @@
-import config from "../../supacms.config";
+import config from "../../config";
 import { supa } from "../supabase";
 
 export const fetchBuckets = async () => {

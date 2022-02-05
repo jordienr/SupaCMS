@@ -1,4 +1,4 @@
-import config from "../../supacms.config";
+import config from "@/config/";
 export * from "./supabase";
 
 export { config };
