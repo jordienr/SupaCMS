@@ -10,8 +10,8 @@ SupaCMS requires that you setup your RLS well in the Supabase Admin Dashboard. D
 
 You can deploy SupaCMS in Vercel or Netlify.
 
-Step 1. Clone repository
-Step 2. Fill the SupaCMS schema at `./src/config/supacms.config.ts`
-Step 3. Try it out with `yarn dev`
-Step 4. Push your changes to your cloned repository
+Step 1. Clone repository  
+Step 2. Fill the SupaCMS schema at `./src/config/supacms.config.ts`  
+Step 3. Try it out with `yarn dev`  
+Step 4. Push your changes to your cloned repository  
 Step 5. Deploy the repository to Vercel.
