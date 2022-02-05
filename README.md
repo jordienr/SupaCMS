@@ -1,11 +1,17 @@
-# Vue 3 + Typescript + Vite
+# SupaCMS Alpha
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+DISCLAIMER: SupaCMS is not an active open source project, it's just a prototype. You can play with it but don't expect it to work flawlessly or have all the features you want.
 
-## Recommended IDE Setup
+SupaCMS is a schema-based CMS for supabase projects. It aims to make it easy to generate a CMS for your supabase project so you can manage your data like in a regular CMS.
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+SupaCMS requires that you setup your RLS well in the Supabase Admin Dashboard. Do not leave RLS open or anyone with an account in your project could log into the CMS and manage the data.
 
-## Type Support For `.vue` Imports in TS
+## Deploying SupaCMS
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+You can deploy SupaCMS in Vercel or Netlify.
+
+Step 1. Clone repository
+Step 2. Fill the SupaCMS schema at `./src/config/supacms.config.ts`
+Step 3. Try it out with `yarn dev`
+Step 4. Push your changes to your cloned repository
+Step 5. Deploy the repository to Vercel.
