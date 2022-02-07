@@ -54,3 +54,16 @@ You'll find the config schema at `src/config/supacms.config.ts`
 }
 
 ```
+
+## Roadmap
+
+These features are in development:
+
+- Support enums
+- Support linked tables
+- CRUD over bucket files
+- Folder navigation in bucket
+- i18n
+- Export as a function
+- Publish on NPM as a function
+- Custom icons in navigation panel
